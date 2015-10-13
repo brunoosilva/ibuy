@@ -1,0 +1,54 @@
+// Mixins
+.fontRobotoRegular(@size: 16px){
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: @size;
+}
+
+.fontRobotoBold(@size: 16px){
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: @size;
+  font-weight: bold;
+}
+
+.border-radius( @px ){
+  -webkit-border-radius: @px;
+     -moz-border-radius: @px;
+          border-radius: @px;
+}
+
+.transition( @param ){
+  -webkit-transition: @param;
+     -moz-transition: @param;
+          transition: @param;
+}
+
+.btn{
+  position: relative;
+  display: block;
+  width: 100%;
+  border: 0;
+  .border-radius(5px);
+  .fontRobotoBold(20px);
+  text-transform: uppercase;
+  color: #fff;
+  padding: 10px 15px;
+  margin: 5px 0;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  i{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    color: #fff;
+    font-size: 18px;
+  }
+  &:hover{
+    text-decoration: none;
+  }
+  &[disabled]{
+    opacity: .4;
+    cursor: default;
+    pointer-events: none;
+  }
+}

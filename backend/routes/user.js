@@ -6,6 +6,7 @@ var user = require('../models/user.js');
 
 /* Login user */
 router.post('/', function(req, res, next) {
+  console.log(req.body);
   user.findOne(req.body, function(err, user) {
     if( user != null ) {
       res.send( user )
@@ -18,7 +19,13 @@ router.post('/', function(req, res, next) {
 /* POST /user */
 router.post('/add', function(req, res, next) {
   user.create(req.body, function (err, post) {
-    if (err) return next(err);
+    console.log(err);
+    if (err) {
+      if(err.code == 11000){ // Duplicate key
+        res.status(500).send('E-mail já cadastrado');
+      }
+      return next(err);
+    }
     res.json(post);
   });
 });

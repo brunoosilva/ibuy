@@ -11,7 +11,7 @@ module.exports = function( grunt ) {
         }
       },
       uglify: {
-        files: [ "assets/js/libs/**/*.min.js", "assets/js/src/*.js"], // which files to watch
+        files: [ "assets/libs/**/*.min.js", "assets/js/src/*.js"], // which files to watch
         tasks: [ "uglify" ]
       }
     },
@@ -23,7 +23,11 @@ module.exports = function( grunt ) {
       ibuy: {
         files: {
           "assets/js/site.min.js" : [
-                                      "assets/js/libs/**/*.min.js"
+                                      "assets/libs/angular/angular.min.js"
+                                    , "assets/libs/angular-route/angular-route.min.js"
+                                    , "assets/libs/angular-sanitize/angular-sanitize.min.js"
+                                    , "assets/libs/ngSweetAlert/SweetAlert.min.js"
+                                    , "assets/libs/sweetalert/dist/sweetalert.min.js"
                                     , "assets/js/src/*.js"
                                     ]
         }
@@ -39,7 +43,7 @@ module.exports = function( grunt ) {
         files:  {
           "assets/css/site.min.css": "assets/less/*.less"
         }
-      }      
+      }
     }
   });
 

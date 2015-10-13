@@ -1,0 +1,47 @@
+<div class="container hidden-xs hidden-sm" ng-controller="headerCtrl">
+  <div class="logo">
+    <a href="#/">
+      <img src="./assets/images/logo_small.png" alt="iBuy - Sua lista de compras" />
+    </a>
+  </div>
+  <div class="menu">
+    <ul>
+      <li ng-class="{active: isActive('/items')}">
+        <a href="#/items">Itens</a>
+      </li>
+      <li ng-class="{active: isActive('/wishilist')}">
+        <a href="#/wishilist">Minha lista</a>
+      </li>
+    </ul>
+  </div>
+  <div class="user">
+    <img src="./assets/images/nophoto.png" class="user-photo" alt="{{ username }}" />
+    <span class="user-name">{{ username }} <small><a href="javascript:void(0)" ng-click="doLogout()" class="logout">Sair</a></small></span>
+  </div>
+</div>
+
+<div class="container header-mobile visible-xs visible-sm row">
+  <div class="col-xs-3 col-sm-3 text-left">
+    <button class="btn-menu" ng-click="headerMobile=!headerMobile"><i class="fa fa-bars"></i></button>
+  </div>
+  <div class="col-xs-6 col-sm-6 text-center">
+    <div class="logo">
+      <a href="#/">
+        <img src="./assets/images/logo_small.png" alt="iBuy - Sua lista de compras" />
+      </a>
+    </div>
+  </div>
+  <div class="col-xs-3 col-sm-3 text-right">
+    <button class="btn-exit" ng-click="doLogout()"><i class="fa fa-sign-out"></i></button>
+  </div>
+  <div class="menu" ng-show="headerMobile">
+    <ul>
+      <li ng-class="{active: isActive('/items')}">
+        <a href="#/items">Itens</a>
+      </li>
+      <li ng-class="{active: isActive('/wishilist')}">
+        <a href="#/wishilist">Minha lista</a>
+      </li>
+    </ul>
+  </div>
+</div>

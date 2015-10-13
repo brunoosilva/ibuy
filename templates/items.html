@@ -1,0 +1,23 @@
+<header ng-include="'templates/header.html'"></header>
+
+<section>
+  <div class="container">
+    <h1 class="page-title">Itens</h1>
+
+    <div class="list-items">
+      <ul>
+        <li ng-repeat="item in items">
+          <div class="item-image">
+            <a href="#/items/{{ item.alias }}">
+              <img ng-src="{{ item.photo }}" alt="{{ item.name }}" />
+            </a>
+            <button class="btn-wishilist" ng-click="addWishilist( {{ item._id }} )">
+              <i class="fa fa-heart"></i>
+            </button>
+          </div>
+          <a href="#/items/{{ item.alias }}" class="item-name">{{ item.name }}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

@@ -11,7 +11,9 @@ var products = require('./routes/products');
 var wishilist = require('./routes/wishilist');
 
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/ibuy', function(err) {
+//var mongodb_connection = 'mongodb://localhost/ibuy';
+var mongodb_connection = 'mongodb://ibuy:bru160292@ds051740.mongolab.com:51740/ibuy';
+mongoose.connect(mongodb_connection, function(err) {
     if(err) {
         console.log('connection error', err);
     } else {
@@ -24,6 +26,26 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+// Add headers
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -68,6 +90,5 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
-
 
 module.exports = app;
