@@ -1,6 +1,7 @@
 var app = angular.module('ibuy.services', []);
 
-app.constant('API_URL', 'http://localhost:3000/');
+//app.constant('API_URL', 'http://localhost:3000/');
+app.constant('API_URL', 'https://protected-atoll-9121.herokuapp.com/');
 
 app.service('authService', ['$http', '$localstorage', 'API_URL', function($http, $localstorage, API_URL) {
   return{
