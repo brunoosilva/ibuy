@@ -1,0 +1,18 @@
+<header ng-include="'templates/header.html'"></header>
+
+<section>
+  <div class="container">
+    <h1 class="page-title">{{ item.name }} <label class="label-purchased" ng-class="{purchased: item.purchased}">{{ item.purchased ? 'Comprado' : 'Não Comprou'}}</label></h1>
+
+    <div class="item-detail row">
+      <div class="item-image text-center col-md-6">
+        <img ng-src="{{ item.photo }}" alt="{{ item.name }}" />
+      </div>
+      <div class="item-description col-md-6">
+        <div class="description" ng-bind-html="item.description"></div>
+        <button class="btn-secundary" ng-click="addWishilist(item._id)" ng-show="!item.isWishilist"><i class="fa fa-heart"></i> Add Lista</button>
+        <button class="btn-remove" ng-click="removeWishilist(item._id)" ng-show="item.isWishilist"><i class="fa fa-heart"></i> Remover Lista</button>
+      </div>
+    </div>
+  </div>
+</section>

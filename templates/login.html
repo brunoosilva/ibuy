@@ -1,0 +1,19 @@
+<div class="box-auth">
+  <div class="auth-logo">
+    <img ng-src="./assets/images/logo.png" alt="iBuy - Sua lista de compras"/>
+  </div>
+  <div class="form-auth">
+    <form name="login_form" novalidate ng-cloak>
+      <p>Faça seu login:</p>
+      <div class="form-item">
+        <input type="email" name="user_email" ng-model="auth.email" placeholder="e-mail" required/>
+      </div>
+      <div class="form-item">
+        <input type="password" name="user_password" ng-model="auth.password" placeholder="senha" required/>
+      </div>
+      <button type="submit" class="btn-primary" ng-click="doLogIn()" ng-disabled="login_form.$invalid || disableButton">Entrar</button>
+    </form>
+    <p>Ainda não tem cadastro ?</p>
+    <a href="#/register" class="btn-secundary">Cadastre-se</a>
+  </div>
+</div>
