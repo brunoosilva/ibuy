@@ -11,8 +11,8 @@ var products = require('./routes/products');
 var wishilist = require('./routes/wishilist');
 
 var mongoose = require('mongoose');
-var mongodb_connection = 'mongodb://localhost/ibuy';
-//var mongodb_connection = 'mongodb://ibuy:bru160292@ds051740.mongolab.com:51740/ibuy';
+//var mongodb_connection = 'mongodb://localhost/ibuy';
+var mongodb_connection = 'mongodb://ibuy:bru160292@ds051740.mongolab.com:51740/ibuy';
 mongoose.connect(mongodb_connection, function(err) {
     if(err) {
         console.log('connection error', err);
