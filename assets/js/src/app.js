@@ -8,10 +8,6 @@ var app = angular.module('iBuy', [
 
 app.run(['$rootScope', '$location', 'authService', function($rootScope, $location, authService){
   $rootScope.$on("$routeChangeStart", function (event, next, current) {
-      if(next && next.$$route.originalPath == '/login' && authService.isAuthenticated()){
-          $location.path("/items");
-      }
-
       if(next && next.$$route){
           if (next.$$route.secure) {
               if (!authService.isAuthenticated()) {
