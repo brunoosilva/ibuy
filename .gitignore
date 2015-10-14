@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 node_modules
 backend
+=======
+backend/node_modules
+node_modules
+>>>>>>> master
