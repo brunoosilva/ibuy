@@ -3,5 +3,32 @@
 <section>
   <div class="container">
     <h1 class="page-title">Minha lista</h1>
+
+    <div class="list-wishilist" ng-if="wishlist.length">
+      <ul>
+        <li ng-repeat="item in wishlist">
+          <div class="wishilist-image">
+            <a href="#/items/{{ item.alias }}">
+              <img ng-src="{{ item.photo }}" alt="{{ item.name }}" />
+            </a>
+          </div>
+          <div class="wishilist-info">
+            <span class="item-name">{{ item.name }}</span>
+            <label class="label-purchased" ng-class="{purchased: item.purchased}">{{ item.purchased ? 'Comprado' : 'Não Comprou'}}</label>
+          </div>
+          <div class="wishilist-action">
+            <button ng-click="changePurchased(item)" class="change-wishilist">
+              <i class="fa" ng-class="{'fa-square-o': !item.purchased, 'fa-check-square': item.purchased}"></i>
+            </button>
+            <button ng-click="removeWishilist(item, $index)" class="remove-wishilist">
+              <i class="fa fa-trash"></i>
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="text-center" ng-if="!wishlist.length">
+      <h3>Nenhum produto em sua lista</h3>
+    </div>
   </div>
 </section>

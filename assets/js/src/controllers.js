@@ -33,9 +33,17 @@ app.controller('RegisterCtrl', ['$scope', 'authService', 'SweetAlert', '$locatio
 
     authService.signup($scope.auth).then(function(data) {
       var result = data.data;
+      $localstorage.set('user', result);
       if(result){
-          $localstorage.set('user', result);
-          $location.path('/items');
+        swal({
+          title: "Parabéns!",
+          text: "Seu cadastro foi criado com sucesso!",
+          type: "success",
+          confirmButtonColor: "#15905c",
+          confirmButtonText: "Começar!"
+        }, function(){
+          $scope.$apply(function() { $location.path("/items"); });
+       });
       }
     }, function(err) {
       $scope.disableButton = false;
@@ -59,7 +67,8 @@ app.controller('headerCtrl', ['$scope', '$location', 'authService', function($sc
   $scope.headerMobile = false;
 }]);
 
-app.controller('ItemsCtrl', ['$scope', 'productsService', function($scope, productsService) {
+
+app.controller('ItemsCtrl', ['$scope', 'productsService', 'wishilist', function($scope, productsService, wishilist) {
   $scope.items = [];
   productsService.getProducts().then(function(data){
     var result = data.data;
@@ -67,9 +76,14 @@ app.controller('ItemsCtrl', ['$scope', 'productsService', function($scope, produ
       $scope.items = result;
     }
   });
+
+  $scope.addWishilist = function(item){
+    item.wishilist = true;
+    wishilist.addWishilist(item._id);
+  };
 }]);
 
-app.controller('ItemDetailCtrl', ['$scope', 'productsService', '$route', function($scope, productsService, $route) {
+app.controller('ItemDetailCtrl', ['$scope', 'productsService', '$route', 'wishilist', function($scope, productsService, $route, wishilist) {
   $scope.item = {};
   $scope.alias = $route.current.params.alias;
   productsService.getProduct($scope.alias).then(function(data){
@@ -78,10 +92,36 @@ app.controller('ItemDetailCtrl', ['$scope', 'productsService', '$route', functio
       $scope.item = result;
     }
   });
+
+  $scope.addWishilist = function(id_product){
+    $scope.item.isWishilist = true;
+    wishilist.addWishilist(id_product);
+  };
+
+  $scope.removeWishilist = function(id_product){
+    $scope.item.isWishilist = false;
+    wishilist.removeWishilist(id_product);
+  };
 }]);
 
+app.controller('WishilistCtrl', ['$scope', 'wishilistService', 'wishilist', function($scope, wishilistService, wishilist) {
+  $scope.wishlist = [];
+  wishilistService.getList().then(function(data) {
+    var result = data.data;
+    if(result){
+        $scope.wishlist = result;
+    }
+  }, function(err) {
+    SweetAlert.swal("Erro", err.data, "error");
+  });
 
+  $scope.changePurchased = function(item){
+    item.purchased = !item.purchased;
+    wishilist.changeWishilist(item._id, item.purchased);
+  };
 
-app.controller('WishilistCtrl', ['$scope', function($scope) {
-
+  $scope.removeWishilist = function(item, $index){
+    wishilist.removeWishilist(item._id, true);
+    $scope.wishlist.splice($index, 1);
+  };
 }]);

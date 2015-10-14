@@ -26,6 +26,7 @@ app.run(['$rootScope', '$location', 'authService', function($rootScope, $locatio
 
 app.config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
   $httpProvider.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
+  $httpProvider.defaults.headers.put["Content-Type"] = "application/x-www-form-urlencoded";
   var param = function(obj) {
      var query = '', name, value, fullSubName, subName, subValue, innerObj, i;
 
@@ -108,3 +109,55 @@ app.factory('$localstorage', ['$window', function($window){
         }
     };
 }]);
+
+app.factory('wishilist', function(wishilistService, SweetAlert, $location, $window){
+  return {
+    addWishilist: function(id_product){
+      wishilistService.addList({id_product: id_product}).then(function(data){
+        swal({
+          title: "Ótimo!",
+          text: "O produto foi adicionado na sua lista.",
+          type: "success",
+          showCancelButton: true,
+          confirmButtonColor: "#15905c",
+          confirmButtonText: "Ver Minha Lista",
+          cancelButtonText: "Fechar",
+          closeOnConfirm: true
+        }, function(){
+          $window.location.href= "#/wishilist";
+        });
+      }, function(err){
+        SweetAlert.swal("Erro", err.data, "error");
+      });
+    },
+    changeWishilist: function(id_product, purchased){
+      var title = (purchased)?"Comprado":"Não comprado",
+          text = (purchased)?"Produto marcado como comprado":"Produto marcado como não comprado";
+      wishilistService.updateItemList(id_product, purchased).then(function(){
+        SweetAlert.swal(title, text, "success");
+      }, function(err){
+        SweetAlert.swal("Erro", err.data, "error");
+      });
+    },
+    removeWishilist: function(id_product, hideConfirm){
+      var showConfirm = (hideConfirm)?false:true;
+      wishilistService.deleteItemList(id_product).then(function(){
+        swal({
+          title: "Removido",
+          text: "Produto removido da lista com sucesso",
+          type: "success",
+          showConfirmButton: showConfirm,
+          showCancelButton: true,
+          confirmButtonColor: "#15905c",
+          confirmButtonText: "Ver Minha Lista",
+          cancelButtonText: "Fechar",
+          closeOnConfirm: true
+        }, function(){
+          $window.location.href= "#/wishilist";
+        });
+      }, function(err){
+        SweetAlert.swal("Erro", err.data, "error");
+      });
+    }
+  };
+});

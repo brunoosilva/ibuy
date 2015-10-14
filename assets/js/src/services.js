@@ -43,13 +43,16 @@ app.service('wishilistService', ['$http', 'authService', 'API_URL', function($ht
       addList: function(data){
         var user = authService.getUser();
         data.id_user = user["_id"];
+        data.purchased = false;
         return $http.post(API_URL + "wishilist", data);
       },
-      updateItemList: function(id, purchased){
-        return $http.put(API_URL + "wishilist/" + id, {purchased: purchased});
+      updateItemList: function(id_product, purchased){
+        var user = authService.getUser();
+        return $http.put(API_URL + "wishilist/" + user["_id"] + "/" + id_product, {id_user: user["_id"], id_product: id_product, purchased: purchased});
       },
-      deleteItemList: function(id){
-        return $http.delete(API_URL + "wishilist/" + id);
+      deleteItemList: function(id_product){
+        var user = authService.getUser();
+        return $http.delete(API_URL + "wishilist/" + user["_id"] + "/" + id_product);
       }
   }
 }]);

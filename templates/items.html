@@ -11,7 +11,7 @@
             <a href="#/items/{{ item.alias }}">
               <img ng-src="{{ item.photo }}" alt="{{ item.name }}" />
             </a>
-            <button class="btn-wishilist" ng-click="addWishilist( {{ item._id }} )">
+            <button class="btn-wishilist" ng-click="addWishilist(item)" ng-if="!item.wishilist">
               <i class="fa fa-heart"></i>
             </button>
           </div>
